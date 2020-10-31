@@ -12,7 +12,7 @@ RUN mkdir /var/run/sshd \
 
 COPY start.sh /bin/start.sh
 RUN chmod +x /bin/start.sh
-RUN groupadd ops-user --gid 1000
-RUN useradd -m ops-user --uid 1000 --gid ops-user
+RUN groupadd ops-users --gid 1000
+RUN useradd -m ops-user --uid 1000 --gid ops-users
 ENTRYPOINT ["/bin/start.sh"]
 EXPOSE 22
