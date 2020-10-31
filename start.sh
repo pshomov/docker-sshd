@@ -1,9 +1,10 @@
 #!/bin/bash
 
-mkdir -p $HOME/.ssh
-chmod 700 $HOME/.ssh
+USER_HOME=/home/ops-user
+mkdir -p $USER_HOME/.ssh
+chmod 700 $USER_HOME/.ssh
 
-authorized_keys=$HOME/.ssh/authorized_keys
+authorized_keys=$USER_HOME/.ssh/authorized_keys
 touch $authorized_keys
 chmod 600 $authorized_keys
 
