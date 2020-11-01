@@ -14,7 +14,7 @@ for user in $GITHUB_USERS; do
   curl -s "https://github.com/${user}.keys" >> $authorized_keys
 done
 echo "" >> $authorized_keys
-chown -R ops-user:ops-users $USER_HOME
+chown -R ops-user:ops-users $USER_HOME/.ssh
 echo "Starting SSH daemon"
-/usr/sbin/sshd -D
+/usr/sbin/sshd -d
 
