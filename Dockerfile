@@ -1,6 +1,6 @@
 FROM debian:10.6 as base
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl openssh-server mosh \
  && rm -rf /var/lib/apt/lists/*
 
@@ -21,13 +21,18 @@ ENTRYPOINT ["/bin/start.sh"]
 EXPOSE 22
 
 FROM base
-RUN apt-get update && apt-get install -y \
-    git unzip \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git unzip rsync less python3-pip \
  && rm -rf /var/lib/apt/lists/*
 
 # Setting up tfenv
 USER ops-user
 RUN git clone https://github.com/tfutils/tfenv.git ~/.tfenv \
-    && echo 'export PATH="$HOME/.tfenv/bin:$PATH"' >> ~/.bash_profile
+    && echo 'export PATH="$HOME/.tfenv/bin:$HOME/.local/bin:$PATH"' >> ~/.bash_profile
 
+RUN pip3 install --user aws-export-credentials
 USER root
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o ~/awscliv2.zip && \
+  cd ~ && unzip awscliv2.zip && \
+  ./aws/install && \
+  rm awscliv2.zip && rm -rf aws
