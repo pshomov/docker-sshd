@@ -15,7 +15,7 @@ RUN chmod +x /bin/start.sh
 
 # Runtime user
 RUN groupadd ops-users --gid 1000
-RUN useradd -m ops-user --uid 1000 --gid ops-users
+RUN useradd -m ops-user -s /bin/bash --uid 1000 --gid ops-users
 
 ENTRYPOINT ["/bin/start.sh"]
 EXPOSE 22
