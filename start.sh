@@ -16,5 +16,5 @@ done
 echo "" >> $authorized_keys
 chown -R ops-user:ops-users $USER_HOME/.ssh
 echo "Starting SSH daemon"
-/usr/sbin/sshd -d
+/usr/sbin/sshd -D
 
