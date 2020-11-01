@@ -1,6 +1,10 @@
 #!/bin/sh
+set -euxo pipefail
 
-repository=coralteam/sshd
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+REPOSITORY=pshomov/docker-sshd
+PUSH=${PUSH:-false}
 
 build_push() {
   image=$1
@@ -9,12 +13,9 @@ build_push() {
   docker build -t "$image" .
 
   echo; echo "Pushing $image"
-  docker push "$image"
+  if [[ "true" == "$PUSH" ]] ; then
+   docker push "$image"
+  fi
 }
 
-build_push $repository:base
-
-for name in $(ls variants); do
-  image="$repository:$name"
-  ( cd "variants/${name}" && build_push $image . )
-done
+build_push $REPOSITORY
